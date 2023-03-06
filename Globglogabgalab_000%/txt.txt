@@ -1,0 +1,43 @@
+The Globglogabgalab loves books. He also prefers that all his books be sorted alphabetically by title. Unfortunately, some vandals broke into his basement last night and jumbled all his books! Now he needs to sort them again.
+
+The Globglogabgalab sorts his books using the bubble sort method: He goes through the books on the bookshelf, from left to right, and compares each book with the book to the right. If the two books are in the wrong order, he swaps them. He repeats this process until all the books are in order.
+
+But the Globglogabgalab loves books so much, that each time he swaps 2 books, he gets sidetracked and reads both of the books before swapping them.
+You need to figure out how long it will take the Globglogabgalab to sort a given bookshelf.
+
+
+
+Le Globglogabgalab aime les livres. Il préfère également que tous ses livres soient triés par ordre alphabétique de titre. Malheureusement, des vandales ont fait irruption dans son sous-sol la nuit dernière et ont mélangé tous ses livres ! Maintenant, il doit les trier à nouveau.
+
+Le Globglogabgalab trie ses livres en utilisant la méthode du tri à bulles : Il parcourt les livres sur l'étagère, de gauche à droite, et compare chaque livre avec le livre à droite. Si les deux livres sont dans le mauvais ordre, il les échange. Il répète ce processus jusqu'à ce que tous les livres soient en ordre.
+
+Mais le Globglogabgalab aime tellement les livres, qu'à chaque fois qu'il échange 2 livres, il se laisse distraire et lit les deux livres avant de les échanger.
+Vous devez déterminer combien de temps il faudra au Globglogabgalab pour trier une étagère donnée.
+
+
+
+
+Entrée
+Line 1: An integer N for the number of books on the bookshelf.
+Next N lines: Each represent a book on the bookshelf, in order from left to right, in the format book title (string),minutes taken to read the book (integer).
+
+Sortie
+The time (in minutes) that it will take for the Globglogabgalab to sort the bookshelf.
+
+Contraintes
+book titles will only contain lowercase letters and spaces.
+All book titles are unique.
+50 > N > 1
+100,000 > minutes taken to read the book > 0
+
+
+
+Exemple
+Entrée
+3
+the hitchhikers guide to the galaxy,42
+fifty shades of grey,124
+the c programming language,598
+
+Sortie
+806

@@ -1,0 +1,45 @@
+https://www.codingame.com/clashofcode/clash/295380869bf4c8398a982ce7a59c1ee63aeac7e
+
+In Mathematics, Knuth's up-arrow notation makes it possible to write very large numbers by repeatedly applying operators. A single up-arrow of the form X ↑ Y means to multiply X by itself Y times or exponentiation :
+2 ↑ 4 =2^4= 2*2*2*2 = 16
+
+Tetration is defined similarly: exponentiate X by itself Y times.
+2 ↑↑ 4 = 2↑(2↑(2↑2)) or 2^(2^(2^2)) = 65536
+5 ↑↑ 3 = 5^(5^5) = 298,023,223,876,953,125
+
+Three up-arrows iterates tetration, and so on.
+
+Given 2 integers X and Y, find X ↑↑ Y
+
+
+
+En mathématiques, la notation flèche vers le haut de Knuth permet d'écrire de très grands nombres en appliquant à plusieurs reprises des opérateurs. Une seule flèche vers le haut de la forme X ↑ Y signifie multiplier X par lui-même Y fois ou exponentiation :
+2 ↑ 4 =2^4= 2*2*2*2 = 16
+
+La tétratation est définie de la même manière : exponentiez X par lui-même Y fois.
+2 ↑↑ 4 = 2↑(2↑(2↑2)) ou 2^(2^(2^2)) = 65536
+5 ↑↑ 3 = 5^(5^5) = 298 023 223 876 953 125
+
+Trois flèches vers le haut itèrent la tétration, et ainsi de suite.
+
+Étant donné 2 entiers X et Y, trouver X ↑↑ Y
+
+
+
+Entrée
+Line 1 : Integer X
+Line 2 : Integer Y
+
+Sortie
+Line 1: Integer R
+
+Contraintes
+0 ≤ X ≤ 10
+1 ≤ Y ≤ 1000
+
+Exemple
+Entrée
+2
+2
+Sortie
+4

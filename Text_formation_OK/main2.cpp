@@ -190,3 +190,175 @@ bool    testPunctuation(char c)
     }
     return (true);
 }
+
+
+// ********************************************************
+
+// #include <iostream>
+// #include <string>
+// #include <regex>
+
+// using namespace std;
+
+// int main()
+// {
+//     std::string x;
+//     getline(cin, x);
+
+//     cerr << "x = " << x << endl;
+
+//     for( int i = 0; i < x.length(); i++ ) { x[i] = tolower( x[i] ); }
+//     x = regex_replace (x, regex("[\\s]+"), " ");
+//     x = regex_replace (x, regex("[ ]*,[ ]*"), ",");
+//     x = regex_replace (x, regex("[ ]*\\.[ ]*"), ".");
+//     x = regex_replace (x, regex(",+"), ", ");
+//     x = regex_replace (x, regex("\\.+"), ". ");
+//     x = regex_replace (x, regex("[\\s]+$"), "");
+
+//     // upper case for start of sentence
+//     x[0] = toupper( x[0] );
+//     for( int i = 2; i < x.length(); i++ ) {
+//         if( x[i-2] == '.' && x[i-1] == ' ' ) { 
+//             x[i] = toupper( x[i] );
+//         }
+//     }
+    
+//     cout << x << endl;
+// }
+
+// ********************************************************
+
+
+
+// #include <iostream>
+// #include <string>
+// #include <algorithm>
+// #include <sstream>
+// using namespace std;
+
+// int main()
+// {
+//     string intext; getline(cin, intext);
+
+//     ostringstream str;
+//     bool isStart = true, isPunct = false, isSpace = false;
+//     for (auto c : intext) {
+//         if (isspace(c)) {
+//             isSpace = true;
+//             continue;
+//         } else if (isalpha(c)) {
+//             if (isPunct || isSpace) str << ' ';
+//             c = isStart ? toupper(c) : tolower(c);
+//             isStart = isPunct = isSpace = false;
+//         } else if (ispunct(c)) {
+//             if (isPunct) continue;
+//             isStart = ('.' == c);
+//             isPunct = true;
+//             isSpace = false;
+//         }
+//         str << c;
+//     }
+
+//     cout << str.str() << endl;
+// }
+
+// ********************************************************
+
+
+// #include <iostream>
+
+// using namespace std;
+
+// void replace(string& s, const string& s1, const string& s2, const bool& once=false) {
+//     auto f = s.find(s1);
+//     while(f != s.npos) {
+//         s.replace(f, s1.length(), s2);
+//         f = s.find(s1, once ? f+1 : 0);
+//     }
+// }
+
+// void fix_case(string& s) {
+//     string r;
+//     bool punct(true);
+//     for (char c:s) {
+//         if (punct && c>='a' && c<='z') c+='A'-'a'; 
+//         if (!punct && c>='A' && c<='Z') c-='A'-'a';
+//         if (c!=' ') punct=false;
+//         if (c=='.') punct=true;
+//         r+=c;
+//     }
+//     s = r;
+// }
+
+// int main()
+// {
+//     string t;
+//     getline(cin, t);
+//     for (string p:{ ".", ",", ";" }) {
+//         replace(t, " "+p, p);
+//         replace(t, p+p, p);
+//         replace(t, p, p+" ", true);
+//     }
+//     replace(t, "  ", " ");
+//     fix_case(t);
+//     if (t.back() == ' ') t.pop_back();
+//     cout << t << endl;
+// }
+
+
+
+// ********************************************************
+
+
+// #include <iostream>
+// #include <string>
+// #include <vector>
+// #include <algorithm>
+// #include <ctype.h>
+
+// using namespace std;
+
+
+// int main()
+// {
+//     string s;
+//     getline(cin, s);
+	
+// 	for(int i=s.size()-1;i>=0;i--){
+// 		if( i>0 && s[i] == ' ' && !isalpha(s[i-1]) ){
+// 			s.erase( s.begin()+i );
+// 		}
+// 		else if( i<s.size()-1 && s[i] == ' ' && !isalpha(s[i+1]) ){
+// 			s.erase( s.begin()+i );
+// 		}
+// 	}
+	
+// 	bool capsNeeded = true;	
+// 	int i=0;
+// 	while( i<s.size() ){
+// 		if( isalpha(s[i]) ){
+// 			if( capsNeeded ){
+// 				s[i] = toupper(s[i]);
+// 				capsNeeded = false;
+// 			}
+// 			else{
+// 				s[i] = tolower(s[i]);
+// 			}
+// 			i++;
+// 		}
+// 		else if( s[i] != ' ' && i<s.size()-1 ){
+// 			if( s[i+1] == s[i] ){
+// 				s.erase( s.begin()+i );
+// 			}
+// 			else{
+// 				s.insert( s.begin()+i+1, ' ');
+// 				capsNeeded = s[i] == '.';
+// 				i+=2;
+// 			}
+// 		}
+// 		else{
+// 			i++;
+// 		}
+// 	}
+// 	cout << s << endl;
+// }

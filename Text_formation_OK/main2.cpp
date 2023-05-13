@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <cctype>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -20,6 +21,7 @@ std::string ft_singleSpaceBetweenWords(std::string intext);
 std::string ft_noSpaceBeforePunctuation(std::string intext);
 std::string ft_oneSpaceAfterPunctuation(std::string intext);
 std::string ft_removeReapedPunctuation(std::string intext);
+std::string ft_lowercaseLetters(std::string intext);
 
 int main()
 {
@@ -30,14 +32,38 @@ int main()
 
    // intext = "one ,    two, , ,,three   zeee.  ";
 
-
     std::cerr << "00 : " << intext << "\n" << std::endl;
     result = ft_singleSpaceBetweenWords(intext);
     result = ft_noSpaceBeforePunctuation(result);
     result = ft_removeReapedPunctuation(result);
-
     result = ft_oneSpaceAfterPunctuation(result);
+    result = ft_lowercaseLetters(result);
+
     std::cout << result << std::endl;
+}
+
+std::string ft_lowercaseLetters(std::string intext){
+    std::string result = "";
+    int c = intext.length();
+    int i = 2;
+
+    result.push_back(std::toupper(intext.at(0)));
+    result.push_back(std::tolower(intext.at(1)));
+    for (; i < c; i++)
+    {
+        if (intext.at(i - 2 ) == '.')
+        {
+            result.push_back(std::toupper(intext.at(i)));
+        }
+        else
+        {
+            result.push_back(std::tolower(intext.at(i)));
+        }
+    }
+
+
+    std::cerr << "05 : " << result << std::endl;
+    return result;
 }
 
 std::string ft_removeReapedPunctuation(std::string intext){

@@ -15,13 +15,6 @@
 #include <vector>
 #include <algorithm>
 
-// using namespace std;
-
-
-/**
- * Auto-generated code below aims at helping you parse
- * the standard input according to the problem statement.
- **/
 
 std::string toBinary(int n)
 {
@@ -46,9 +39,6 @@ std::string ft_count(char bin, int i, std::string result)
         count += "0";
         i++;
     }
-    // std::cerr << "i bis = " << i << std::endl;
-
-    // std::cerr << "count = " << count << std::endl;
     return count;
 }
 
@@ -63,7 +53,6 @@ int main()
 
     int i;
     int test = 0;
-    //message = "CC";
 
     i = 0;
     while(i < message.size())
@@ -95,10 +84,5 @@ int main()
             unary += " ";
         temp = "";
     }
-
-    
-
-    // Write an answer using cout. DON'T FORGET THE "<< endl"
-    // To debug: cerr << "Debug messages..." << endl;
     std::cout << unary << std::endl;
 }

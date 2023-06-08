@@ -6,7 +6,7 @@
 /*   By: pwolff <pwolff@student.42mulhouse.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 08:28:37 by pwolff            #+#    #+#             */
-/*   Updated: 2023/06/07 09:42:10 by pwolff           ###   ########.fr       */
+/*   Updated: 2023/06/08 11:10:05 by pwolff           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,19 +56,24 @@ std::string ft_display(struct Hero &Batman)
         }
         grille += "\n";
     }
+    grille += "\n";
+
+    //std::cerr << grille << std::endl;
 
     for (int i = Batman.grille_HautGaucheY; i <= Batman.grille_BasDroiteY; i++)
     {
         for (int j = Batman.grille_HautGaucheX; j <= Batman.grille_BasDroiteX; j++)
         {
-            grille.at(i * Batman.h + j) = zWake.at(0);
+            grille.at(i * (Batman.w + 1) + j) = zWake.at(0);
         }
     }
 
+    //std::cerr << grille << std::endl;
+    
 
 
-    grille.at(Batman.y0 * Batman.h + Batman.x0) = pBatman.at(0);
-    grille.at(Batman.yBomb * Batman.h + Batman.xBomb) = pBomb.at(0);
+    grille.at(Batman.y0 * (Batman.w + 1) + Batman.x0) = pBatman.at(0);
+    grille.at(Batman.yBomb * (Batman.w +1) + Batman.xBomb) = pBomb.at(0);
     return grille;
 };
 
@@ -76,8 +81,8 @@ std::string ft_display(struct Hero &Batman)
 
 int main()
 {
-    int w = 9; // width of the building.
-    int h = 10; // height of the building.
+    int w = 20; // width of the building.
+    int h = 21; // height of the building.
     // std::cin >> w >> h; std::cin.ignore();
 
     std::cerr << "tab x -w- : " << w << " tab y -h- : " << h << std::endl;
@@ -115,8 +120,15 @@ int main()
     while (1) {
 
         // Test
-        std::cerr << "Batman X - Y ?" << std::endl;
-        std::cin >> x0 >> y0; std::cin.ignore();
+        while (true)
+        {
+            std::cerr << "Batman X - Y ?" << std::endl;
+            std::cin >> x0 >> y0; std::cin.ignore();
+            if (x0 < w && y0 < h && x0 >= 0 && y0 >= 0)
+                break;
+
+
+        }
 
         // *****
 
@@ -169,7 +181,34 @@ int main()
             Batman.grille_BasDroiteY = y0;
             Batman.grille_BasDroiteX = x0 - 1;
         }
+        else if (bomb_dir == "UR")
+        {
+            std::cerr << "-- UR --" << std::endl;
+            Batman.grille_HautGaucheX = x0 + 1;
+            Batman.grille_BasDroiteY = y0 - 1;
+        }
+        else if (bomb_dir == "UL")
+        {
+            std::cerr << "-- UL --" << std::endl;
+            Batman.grille_BasDroiteX = x0 - 1;
+            Batman.grille_BasDroiteY = y0 - 1;
+        }
+        else if (bomb_dir == "DL")
+        {
+            std::cerr << "-- DL --" << std::endl;
+            Batman.grille_HautGaucheY = y0 + 1;
+            Batman.grille_BasDroiteX = x0 - 1;
+        }
+        else if (bomb_dir == "DR")
+        {
+            std::cerr << "-- DR --" << std::endl;
+            Batman.grille_HautGaucheY = y0 + 1;
+            Batman.grille_HautGaucheX = x0 + 1;
+        }
 
+
+        std::cerr << "Haut Gauche [" << Batman.grille_HautGaucheX << "," << Batman.grille_HautGaucheY << "]"
+                << " Bas Droit [" << Batman.grille_BasDroiteX << "," << Batman.grille_BasDroiteY << "]" << std::endl;
         std::cerr << ft_display(Batman) << std::endl;
 
         // int i = 0;

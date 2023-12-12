@@ -60,5 +60,7 @@
         "unordered_map": "cpp",
         "utility": "cpp",
         "vector": "cpp"
-    }
+    },
+    "42header.email": "pwolff@student.42.fr",
+    "42header.username": "pwolff"
 }

@@ -6,7 +6,7 @@
 /*   By: pwolff <pwolff@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 09:14:18 by pwolff            #+#    #+#             */
-/*   Updated: 2024/01/14 09:16:34 by pwolff           ###   ########.fr       */
+/*   Updated: 2024/01/14 09:25:26 by pwolff           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,3 +91,37 @@ for(let k = sizeNiveaux; k >= 0; k--){
 
 
 console.log(s);
+
+
+
+// ***************************
+
+// const s = readline().split('\\n');
+// const changeCount = parseInt(readline());
+
+// Array
+//     .from({length: changeCount}, _ => {
+//         const [row, col, change] = readline().split('|');
+//         return {row: Number(row), col: Number(col), change :change.replaceAll('\\n','\n')};
+//     })
+//     .sort((a, b) => (a.row === b.row) ? (b.col - a.col) : (b.row - a.row))
+//     .forEach(({row, col, change}) => s[row] = s[row].slice(0, col) + change + s[row].slice(col));
+
+// s.forEach((it) => console.log(it));
+
+
+
+
+
+
+// ******************************************
+
+
+// let r = readline,
+//     str = r().split('\\n');
+
+// [...Array(+r())].map(_ => r().split('|')).sort((a, b) => b[0]-a[0] || b[1]-a[1]).forEach(([r, c, t]) => {
+//     str[r] = str[r].slice(0, +c) + t.replace(/\\n/g, '\n') + str[r].slice(+c);
+// });
+
+// console.log(str.join('\n'));

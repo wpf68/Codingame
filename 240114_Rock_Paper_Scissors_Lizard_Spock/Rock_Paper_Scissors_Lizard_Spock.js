@@ -6,7 +6,7 @@
 /*   By: pwolff <pwolff@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 11:24:57 by pwolff            #+#    #+#             */
-/*   Updated: 2024/01/14 11:25:14 by pwolff           ###   ########.fr       */
+/*   Updated: 2024/01/15 08:41:03 by pwolff           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,11 +118,52 @@ for (let i = 0; i < tabGraph.length; i++){
 
 }
 
-let temp = "";
-for (let i = 0; i < resultList.length - 1; i++){
-    temp += resultList[i];
-}
-resultList = temp;
+resultList = resultList.slice(0, resultList.length - 1);
+// let temp = "";
+// for (let i = 0; i < resultList.length - 1; i++){
+//     temp += resultList[i];
+// }
+// resultList = temp;
 
 console.log(tabPlayer[0][0]);
 console.log(resultList);
+
+
+
+
+
+
+// *******************************************************************************************************
+
+
+const N = parseInt(readline());
+const winConditions=['CP', 'PR', 'RL', 'LS', 'SC', 'CL', 'LP', 'PS', 'SR', 'RC'];
+var Matchups = [];
+
+for (let i = 0; i < N; i++) {
+    var inputs = readline().split(' ');
+    Matchups.push({num:parseInt(inputs[0]), sign:inputs[1], opponents:[]});
+}
+
+function solve(P1,P2) {
+    if (P1.sign==P2.sign) {
+        return P1.num<P2.num ? P1 : P2;
+    } else {
+        return winConditions.includes(P1.sign+P2.sign) ? P1 : P2;
+    }
+}
+
+while (Matchups.length>1) {
+    var P1=Matchups.shift();
+    var P2=Matchups.shift();
+    var win = solve(P1,P2);
+    var lose = win.num==P1.num ? P2 : P1;
+    win.opponents.push(lose.num);
+    Matchups.push(win);
+}
+
+console.log(Matchups[0].num);
+console.log(Matchups[0].opponents.join(' '));
+
+
+// ************************************************************************************************

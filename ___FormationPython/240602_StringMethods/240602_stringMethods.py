@@ -6,7 +6,7 @@
 #    By: pwolff <pwolff@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/02 10:55:14 by pwolff            #+#    #+#              #
-#    Updated: 2024/06/02 11:10:39 by pwolff           ###   ########.fr        #
+#    Updated: 2024/06/02 14:25:31 by pwolff           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,8 @@
 
 import platform
 import os
+import time
+import threading
 
 print(platform.system())
 
@@ -48,11 +50,21 @@ print(string.rjust(100))
 
 Clean()
 
-for i in range(100 - len(string)):
-    print(border100)
-    print(string.rjust(100 - i))
-    Clean()
+def bandeau():
+    # return
+    for j in range(3):
+        for i in range(100 - len(string)):
+            Clean()            
+            print(border100)
+            print(string.rjust(100 - i))
+            time.sleep(0.02)
+
     
 
+act1 = threading.Thread(target= bandeau)
 
+act1.start()
+
+
+print("****  END  ****")
 

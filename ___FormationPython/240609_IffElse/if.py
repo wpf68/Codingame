@@ -6,7 +6,7 @@
 #    By: pwolff <pwolff@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/09 15:02:38 by pwolff            #+#    #+#              #
-#    Updated: 2024/06/09 15:21:13 by pwolff           ###   ########.fr        #
+#    Updated: 2024/06/10 07:34:08 by pwolff           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,4 +57,11 @@ def Caesar(word, shift):
         return encoded
 
 print(Caesar(word, shift))
+
+test = ("h", "el", "lo")
+print(list(test))
+# string = "".join(list(test))
+string = "".join(test)
+print(string)
+
 

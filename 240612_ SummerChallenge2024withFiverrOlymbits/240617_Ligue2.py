@@ -6,7 +6,7 @@
 #    By: pwolff <pwolff@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/17 12:21:37 by pwolff            #+#    #+#              #
-#    Updated: 2024/06/17 12:21:45 by pwolff           ###   ########.fr        #
+#    Updated: 2024/06/17 13:55:31 by pwolff           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,11 +41,18 @@ def testFirstPlayer(pos_player, pos_enemi_1, pos_enemi_2):
     return result_i
 
 
-def test_saut(gpu, pos_player):
+def testOutPlayer(pos_player, pos_enemi_1, pos_enemi_2):
+    ecart = -3
+    if pos_player - pos_enemi_1 < ecart or pos_player - pos_enemi_2 < ecart:
+        return False
+    return True
+
+def test_saut(gpu, pos_player, etourdissement_player):
     compteur = 0
     for i in range(nb_games):
-        if gpu[i][pos_player[i] + 2] == "#":
-            compteur += 1
+        if etourdissement_player[i] == 0:
+            if gpu[i][pos_player[i] + 2] == "#":
+                compteur += 1
     if compteur > 2:
         return 1
     return 0
@@ -137,18 +144,19 @@ while True:
     for i in range(nb_games):
         print("etourdissement_player i = ", i, " = ", etourdissement_player[i], file=sys.stderr, flush=True)
         if etourdissement_player[i] == 0:
-            if gpu[i][pos_player[i] + 1] == "." and gpu[i][pos_player[i] + 2] == "." and gpu[i][pos_player[i] + 3] == ".":
-                movePlayer = 3
-            elif gpu[i][pos_player[i] + 1] == "." and gpu[i][pos_player[i] + 2] == "." :
-                movePlayer = 2
-            elif pos_player[i] == len(gpu[i]) or gpu[i][pos_player[i] + 1] == ".":
-                movePlayer = 1
-            else:
-                movePlayer = 0
-            if movePlayer == 0:
-                movePlayer = test_saut(gpu, pos_player)
-            if movePlayer < movePlayerFinal:
-                movePlayerFinal = movePlayer
+            if testOutPlayer(pos_player[i], pos_enemi_1[i], pos_enemi_2[i]):
+                if gpu[i][pos_player[i] + 1] == "." and gpu[i][pos_player[i] + 2] == "." and gpu[i][pos_player[i] + 3] == ".":
+                    movePlayer = 3
+                elif gpu[i][pos_player[i] + 1] == "." and gpu[i][pos_player[i] + 2] == "." :
+                    movePlayer = 2
+                elif pos_player[i] == len(gpu[i]) or gpu[i][pos_player[i] + 1] == ".":
+                    movePlayer = 1
+                else:
+                    movePlayer = 0
+                if movePlayer == 0:
+                    movePlayer = test_saut(gpu, pos_player, etourdissement_player)
+                if movePlayer < movePlayerFinal:
+                    movePlayerFinal = movePlayer
 
     print(move[movePlayerFinal])
 

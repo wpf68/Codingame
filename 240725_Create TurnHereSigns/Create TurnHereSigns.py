@@ -6,7 +6,7 @@
 #    By: pwolff <pwolff@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/25 14:03:34 by pwolff            #+#    #+#              #
-#    Updated: 2024/07/25 14:03:51 by pwolff           ###   ########.fr        #
+#    Updated: 2024/07/25 15:47:29 by pwolff           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,68 +28,135 @@ print(liste, file=sys.stderr, flush=True)
 
 if liste[0] == 'right':
     char = '>'
+
+    model = ""
+    i = int(liste[3])
+    while i:
+        model += char
+        i -= 1
+
+
+    space = ""
+    i = int(liste[4])
+    while i:
+        space += " "
+        i -= 1
+
+    ligne = ""
+    i = int(liste[1]) - 1
+    while i:
+        ligne += model + space
+        i -= 1
+    ligne += model
+
+
+    additionalIndentOfEachLine = ""
+    i = int(liste[5])
+    while i:
+        additionalIndentOfEachLine += " "
+        i -= 1
+
+
+    result = []
+    result.append(ligne)
+    i = int(liste[2]) - 1
+    while i:
+        ligne = additionalIndentOfEachLine + ligne
+        result.append(ligne)
+        i -= 1
+
+    lenResult = len(result)
+    i = lenResult
+    while i > lenResult / 2:
+        result[i - 1] = result[lenResult - i]
+        i -= 1
+
+
+    print("char     : ", char, file=sys.stderr, flush=True)
+    print("model    : ", model, len(model), file=sys.stderr, flush=True)
+    print("space    : ", space, len(space), file=sys.stderr, flush=True)
+    print("ligne    : ", ligne, len(ligne), file=sys.stderr, flush=True)
+    print("ad space : ", additionalIndentOfEachLine, len(additionalIndentOfEachLine), file=sys.stderr, flush=True)
+
+    print(result, len(result), file=sys.stderr, flush=True)
+
+    i = 0
+    while i < lenResult:
+        print(result[i])
+        i += 1
+
+
+
+
 else:
     char = '<'
 
+    model = ""
+    i = int(liste[3])
+    while i:
+        model += char
+        i -= 1
 
-model = ""
-i = int(liste[3])
-while i:
-    model += char
-    i -= 1
+    space = ""
+    i = int(liste[4])
+    while i:
+        space += " "
+        i -= 1
 
+    ligne = ""
+    i = int(liste[1]) - 1
+    while i:
+        ligne += model + space
+        i -= 1
+    ligne += model
 
-space = ""
-i = int(liste[4])
-while i:
-    space += " "
-    i -= 1
+    additionalIndentOfEachLine = ""
+    i = int(liste[5])
+    while i:
+        additionalIndentOfEachLine += " "
+        i -= 1
 
-ligne = ""
-i = int(liste[1]) - 1
-while i:
-    ligne += model + space
-    i -= 1
-ligne += model
+    spaceMax = ""
+    i = 1
+    while i < int(liste[2]) / 2:
+        spaceMax += additionalIndentOfEachLine
+        i += 1
 
+    ligneMax = spaceMax + ligne
+    
 
-additionalIndentOfEachLine = ""
-i = int(liste[5])
-while i:
-    additionalIndentOfEachLine += " "
-    i -= 1
+    espace = ligneMax.find("<")
 
+    result = []
+    # result.append(ligne)
+    i = 0
+    while i < int(liste[2]) / 2:
+        ligne = ligneMax[(i * len(additionalIndentOfEachLine)) :]
+        # ligne = ligneMax[(i * 2) :]
+        result.append(ligne)
+        i += 1
 
-result = []
-result.append(ligne)
-i = int(liste[2]) - 1
-while i:
-    ligne = additionalIndentOfEachLine + ligne
-    result.append(ligne)
-    i -= 1
-
-lenResult = len(result)
-i = lenResult
-while i > lenResult / 2:
-    result[i - 1] = result[lenResult - i]
-    i -= 1
-
-
-print("char     : ", char, file=sys.stderr, flush=True)
-print("model    : ", model, len(model), file=sys.stderr, flush=True)
-print("space    : ", space, len(space), file=sys.stderr, flush=True)
-print("ligne    : ", ligne, len(ligne), file=sys.stderr, flush=True)
-print("ad space : ", additionalIndentOfEachLine, len(additionalIndentOfEachLine), file=sys.stderr, flush=True)
-
-print(result, len(result), file=sys.stderr, flush=True)
-
+    i = len(result) - 1
+    while i:
+        ligne = ligneMax[((i - 1) * len(additionalIndentOfEachLine)) :]
+        result.append(ligne)
+        i -= 1
 
 
+    print("char     : ", char, file=sys.stderr, flush=True)
+    print("model    : ", model, len(model), file=sys.stderr, flush=True)
+    print("space    : ", space, len(space), file=sys.stderr, flush=True)
+    print("ligne    : ", ligne, len(ligne), file=sys.stderr, flush=True)
+
+    print("ligne Max: ", ligneMax, len(ligneMax), file=sys.stderr, flush=True)
+    # print("ligne Max: ", ligneMax[5:], len(ligneMax[5:]), file=sys.stderr, flush=True)
+
+    print("ad space : ", additionalIndentOfEachLine, len(additionalIndentOfEachLine), file=sys.stderr, flush=True)
+    print("espace   : ", espace, "\n", file=sys.stderr, flush=True)
 
 
-i = 0
-while i < lenResult:
-    print(result[i])
-    i += 1
-
+    i = 0
+    while i < len(result):
+        print(result[i])
+        i += 1
 # print("The Turn Here Sign")

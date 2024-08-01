@@ -6,7 +6,7 @@
 #    By: pwolff <pwolff@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/25 14:03:34 by pwolff            #+#    #+#              #
-#    Updated: 2024/07/25 15:47:29 by pwolff           ###   ########.fr        #
+#    Updated: 2024/08/01 07:57:29 by pwolff           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -160,3 +160,44 @@ else:
         print(result[i])
         i += 1
 # print("The Turn Here Sign")
+
+
+
+
+
+# ***********************************************************************************************
+
+d,*rest = input().split()
+TurnRight = d=='right'
+n,height,width,space,offset = map(int, rest)
+line = (' '*space).join(['<>'[TurnRight]*width]*n)
+yc = height//2
+for indent in [abs(y-yc) for y in range(height)]:
+    if TurnRight: indent = yc-indent
+    print(' '*offset*indent + line)
+
+
+# ***********************************************************************************************
+
+import sys
+import math
+
+# Auto-generated code below aims at helping you parse
+# the standard input according to the problem statement.
+
+direction, *ints = input().split()
+amt, height, width, space, indent = map(int, ints)
+sym = "<>"[direction == "right"]
+
+for i in range(height):
+    if i > int(height / 2):
+        i = height - i - 1
+    
+    if direction == "left":
+        i = int(height / 2) - i
+
+    print(end=" " * (i * indent))
+    print(*([sym * width] * amt), sep=" " * space)
+
+# ***********************************************************************************************
+

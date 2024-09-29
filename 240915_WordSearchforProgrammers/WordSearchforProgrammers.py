@@ -1,3 +1,16 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    WordSearchforProgrammers.py                        :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: pwolff <pwolff@student.42.fr>              +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/09/29 10:59:52 by pwolff            #+#    #+#              #
+#    Updated: 2024/09/29 10:59:58 by pwolff           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+
 import sys
 import math
 
@@ -20,7 +33,8 @@ words = list(clues.split())
 
 
 # words.append("HNL")  # ******** Test
-# words.append("LNH")  # ******** Test
+# words= ["EUOE"]  # ******** Test
+# words= ["E"]  # ******** Test
 
 # words = ["GARFIELD"]
 
@@ -51,7 +65,8 @@ for i in range(len(words)):
             print(words[i], " in ", tab[y], file=sys.stderr, flush=True)
             pos = tab[y].find(words[i])
             for k in range(len(words[i])):
-                newtab[y][k + pos] = words[i][k] 
+                if newtab[y][k + pos] == " ":
+                    newtab[y][k + pos] = words[i][k] 
                 # print(words[i][k], file=sys.stderr, flush=True) 
                 print(newtab[y], file=sys.stderr, flush=True) 
 
@@ -69,7 +84,8 @@ for i in range(len(words)):
             print(chaine_inverse, " in ", tab[y], file=sys.stderr, flush=True)
             pos = tab[y].find(chaine_inverse)
             for k in range(len(chaine_inverse)):
-                newtab[y][k + pos] = chaine_inverse[k] 
+                if newtab[y][k + pos] == " ":
+                    newtab[y][k + pos] = chaine_inverse[k] 
                 # print(words[i][k], file=sys.stderr, flush=True) 
                 print(newtab[y], file=sys.stderr, flush=True) 
 
@@ -82,17 +98,21 @@ for i in range(len(tab[0])):
     print(i, " -- ", newChaine, file=sys.stderr, flush=True)
     for k in range(len(words)):
         if words[k] in newChaine:
+            print("match ", words[k], newChaine,  file=sys.stderr, flush=True)
             pos = newChaine.find(words[k])
             for l in range(len(words[k])):
-                newtab[pos + l][i] = words[k][l]
+                if newtab[pos + l][i] == " ":
+                    newtab[pos + l][i] = words[k][l]
 
     # *********** Haut **********
     for k in range(len(words)):
         chaine_inverse = words[k][::-1]
         if chaine_inverse in newChaine:
             pos = newChaine.find(chaine_inverse)
+            print("match ", chaine_inverse, newChaine,  file=sys.stderr, flush=True)
             for l in range(len(chaine_inverse)):
-                newtab[pos + l][i] = chaine_inverse[l]
+                if newtab[pos + l][i] == " ":
+                    newtab[pos + l][i] = chaine_inverse[l]
 
 
 
@@ -117,14 +137,18 @@ for i in range(len(tab[0])):
     for word in range(len(words)):
         if words[word] in Diago:
             pos = Diago.find(words[word])
+            print("match ", words[word], Diago,  file=sys.stderr, flush=True)
             for j in range(len(words[word])):
-                newtab[pos + j][i + pos + j] = words[word][j]
-            break
+                if newtab[pos + j][i + pos + j] == " ":
+                    newtab[pos + j][i + pos + j] = words[word][j]
+            # break
         chaine_inverse = words[word][::-1]
         if chaine_inverse in Diago:
             pos = Diago.find(chaine_inverse)
+            print("match ", words[word], Diago,  file=sys.stderr, flush=True)
             for j in range(len(words[word])):
-                newtab[pos + j][i + pos + j] = chaine_inverse[j]
+                if newtab[pos + j][i + pos + j] == " ":
+                    newtab[pos + j][i + pos + j] = chaine_inverse[j]
 
 
 
@@ -135,14 +159,18 @@ for i in range(1, len(tab[0])):
     for word in range(len(words)):
         if words[word] in Diago:
             pos = Diago.find(words[word])
+            print("match ", words[word], Diago,  file=sys.stderr, flush=True)
             for j in range(len(words[word])):
-                newtab[i + pos + j][pos + j] = words[word][j]
-            break
+                if newtab[i + pos + j][pos + j] == " ":
+                    newtab[i + pos + j][pos + j] = words[word][j]
+            # break
         chaine_inverse = words[word][::-1]
         if chaine_inverse in Diago:
             pos = Diago.find(chaine_inverse)
+            print("match ", words[word], Diago,  file=sys.stderr, flush=True)
             for j in range(len(words[word])):
-                newtab[i + pos + j][pos + j] = chaine_inverse[j]
+                if newtab[i + pos + j][pos + j] == " ":
+                    newtab[i + pos + j][pos + j] = chaine_inverse[j]
     
 
 
@@ -180,14 +208,18 @@ for i in range(len(tab[0])):
             print("match ", words[word], Diago,  file=sys.stderr, flush=True)
             pos = Diago.find(words[word])
             for j in range(len(words[word])):
-                newtab[pos + j][i - pos - j] = words[word][j]
-            break
+                if newtab[pos + j][i - pos - j] == " ":
+                    newtab[pos + j][i - pos - j] = words[word][j]
+            # break
         chaine_inverse = words[word][::-1]
         if chaine_inverse in Diago:
             print("match ", chaine_inverse, Diago,  file=sys.stderr, flush=True)
             pos = Diago.find(chaine_inverse)
             for j in range(len(words[word])):
-                newtab[pos + j][i - pos - j] = chaine_inverse[j]
+                if newtab[pos + j][i - pos - j] == " ":
+                    newtab[pos + j][i - pos - j] = chaine_inverse[j]
+
+print("\n******** Part II ********\n", file=sys.stderr, flush=True)
 
 for i in range(1, len(tab[0])):
     Diago = diagInverse(tab, -i)
@@ -195,16 +227,24 @@ for i in range(1, len(tab[0])):
     for word in range(len(words)):
         if words[word] in Diago:
             pos = Diago.find(words[word])
+            print("match ", words[word], Diago, " i = ", i, "pos = ",pos, file=sys.stderr, flush=True)
             for j in range(len(words[word])):
                 # newtab[len(newtab) - (pos + j + i)][i + pos + j] = words[word][j]
-                newtab[(pos + j + i)][len(newtab[0]) - (i + pos + j)] = words[word][j]
+                # newtab[(pos + j + i)][len(newtab[0]) - (i + pos + j)] = words[word][j]
+                if newtab[(pos + j + i)][len(newtab[0]) - (pos + j + 1)] == " ":
+                    newtab[(pos + j + i)][len(newtab[0]) - (pos + j + 1)] = words[word][j]
 
-            break
+                # newtab[(pos + j + i)][(pos - j + i)] = words[word][j]
+
+
+            # break
         chaine_inverse = words[word][::-1]
         if chaine_inverse in Diago:
             pos = Diago.find(chaine_inverse)
+            print("match ", words[word], Diago, "reverse :  i = ", i, "pos = ",pos, file=sys.stderr, flush=True)
             for j in range(len(words[word])):
-                newtab[(pos + j + i)][len(newtab[0]) - (i + pos + j)] = chaine_inverse[j]
+                if newtab[(pos + j + i)][len(newtab[0]) - 1 - (pos + j)] == " ":
+                    newtab[(pos + j + i)][len(newtab[0]) - 1 - (pos + j)] = chaine_inverse[j]
     
 
 

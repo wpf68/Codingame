@@ -6,7 +6,7 @@
 #    By: pwolff <pwolff@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/29 10:59:52 by pwolff            #+#    #+#              #
-#    Updated: 2024/09/29 10:59:58 by pwolff           ###   ########.fr        #
+#    Updated: 2024/09/29 11:03:53 by pwolff           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -269,3 +269,69 @@ print("\nnewtab = ", newtab, "\n", file=sys.stderr, flush=True)
 
 for i in range(size):
     print("".join(newtab[i]))
+
+
+
+
+# *********************************************************************************************************************
+# *********************************************************************************************************************
+# *********************************************************************************************************************
+
+
+
+import sys
+import re
+
+
+NEXT_STEP = [  # carré des possibilités
+    "c-1, l-1",     "c, l-1",   "c+1, l-1",
+    "c-1, l",                   "c+1, l",
+    "c-1, l+1",     "c, l+1",   "c+1, l+1"
+]
+
+def log(*args):
+    print(*args, file=sys.stderr, flush=True)
+
+def find_direction(l, c, mot):
+    for step in range(len(NEXT_STEP)):
+        if (result := find_word(l, c, mot, step, 1)) != None:
+            result.append((l, c))
+            return result[:0:-1]
+
+def find_word(l, c, mot, step, index):
+    if index == len(mot):
+        return ['']
+    x, y = eval(NEXT_STEP[step])
+    if 0 <= x < X and 0 <= y < Y and mot[index] == GRILLE[y][x]:
+        if (soluce := find_word(y, x, mot, step, index + 1)):
+            soluce.append((y, x))
+            return soluce
+
+
+
+rows = int(input())
+GRILLE = [input() for _ in range(rows)]
+mots = map(lambda mot: mot.upper(), input().split())
+
+lines = [[" " for _ in range(len(GRILLE[0]))] for _ in range(rows)]
+log(lines)
+X = len(GRILLE[0])
+Y = len(GRILLE)
+
+
+
+for mot in mots:
+    flag = False
+    for l, line in enumerate(GRILLE):
+        for c in re.finditer(mot[0], line):
+            if (soluce := find_direction(l, c.start(), mot)):
+                for index, lettre in enumerate(soluce):
+                    lines[lettre[0]][lettre[1]] = mot[index]
+                flag = True
+                break
+        if flag:
+            break
+
+
+for line in lines:
+    print(''.join(line))

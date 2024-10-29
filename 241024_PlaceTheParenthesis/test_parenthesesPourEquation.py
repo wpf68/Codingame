@@ -6,14 +6,15 @@
 #    By: pwolff <pwolff@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/25 08:34:57 by pwolff            #+#    #+#              #
-#    Updated: 2024/10/28 07:46:36 by pwolff           ###   ########.fr        #
+#    Updated: 2024/10/29 09:08:06 by pwolff           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 import sys
 import math
 
-equation = "1+3*5=20"
+equation = "1+6*5-2=19"
+# equation = "1+3*5=20"
 
 listSolution = []
 
@@ -38,7 +39,7 @@ def testInt(string, sens):
     value = 0
     if sens == 1:
         for i in string:
-            if i.isnumeric():
+            if i.isnumeric() or (i == '-' and value == 0):
                 value += 1
             else:
                 break
@@ -46,6 +47,8 @@ def testInt(string, sens):
         for i in reversed(string):
             if i.isnumeric():
                 value -= 1
+                if value == -(len(string) - 1):
+                    value -= 1
             else:
                 break
     return value
@@ -88,8 +91,8 @@ def division(multi, calcul):
     newString = ""
     a = int(multi[0][testInt(multi[0], 0):])
     b = int(multi[1][:testInt(multi[1], 1)])
-    # print("A = ", a, file=sys.stderr, flush=True)
-    # print("B = ", b, file=sys.stderr, flush=True)
+    print("A = ", a, file=sys.stderr, flush=True)
+    print("B = ", b, file=sys.stderr, flush=True)
     c = round(a / b)
     # creation d'une erreur en cas de division non entiere *******************************
     if c * 100 - round(a / b * 100) != 0:
@@ -150,19 +153,7 @@ def soustraction(multi, calcul):
 def blok(calcul):
     value = 0
     # travail = calcul
-    while True:
-        multi = calcul.split('*')
-        # print("Multiplications : ", multi, file=sys.stderr, flush=True)
-        while True:
-            if len(multi) > 2:
-                temp = multi[1] + "*" + multi[2]
-                multi[1] = temp
-                del multi[2]
-            else:
-                break
-        if len(multi) == 1:
-            break
-        calcul = multiplication(multi, calcul)
+
 
     while True:
         div = calcul.split('/')
@@ -179,7 +170,21 @@ def blok(calcul):
         calcul = division(div, calcul)
         # break
 
+    while True:
+        multi = calcul.split('*')
+        # print("Multiplications : ", multi, file=sys.stderr, flush=True)
+        while True:
+            if len(multi) > 2:
+                temp = multi[1] + "*" + multi[2]
+                multi[1] = temp
+                del multi[2]
+            else:
+                break
+        if len(multi) == 1:
+            break
+        calcul = multiplication(multi, calcul)
 
+        
     while True:
         # soustract = calcul.split('-')
         # soustract = []
@@ -243,6 +248,9 @@ def testInterParent(equation):
 
     return test
 
+
+# ***************    Cherche toutes les combinaisons ***************************
+dataEquations.append(equation)
 for i in range(len(travail)):
 
     if i == 0 or travail[i].isnumeric() and not travail[i - 1].isnumeric():
@@ -258,37 +266,76 @@ for i in range(len(travail)):
                 if test :
                     print("     temp2 : ", temp2)
                     if not (temp2.index('(') == 0 and temp2.index(')') == len(temp2) - 2):
-                        print("No test", equation, file=sys.stderr, flush=True)
+                        # print("No test", equation, file=sys.stderr, flush=True)
 
                         dataEquations.append(temp2[:-1] + "=" + equation.split("=")[1])
             j += 1
     i += 1
 
+
+
+
+# ********************** Verifier les differentes combinaisons
 for equa in dataEquations:
-    print(equa)
+    print(equa, file=sys.stderr, flush=True)
+    test = equa.find('(')
+    print("***  Travail equa : ", equa, file=sys.stderr, flush=True)
+    if test == -1:
+        resultat = blok(equa)
+        test = testError(resultat)
+        if test:
+            listSolution.append(equa)
+            break
+        else:
+            continue
+    premiereParent = equa.find('(')
+    deuxiemeParent = equa.find(')')
+    chaine1 = equa[:premiereParent]
+    chaine2 = equa[premiereParent + 1:deuxiemeParent]
+    chaine3 = equa[deuxiemeParent + 1:]
+    print("**** chaines ****", file=sys.stderr, flush=True)
+    print(chaine1, file=sys.stderr, flush=True)
+    print(chaine2, file=sys.stderr, flush=True)
+    print(chaine3, file=sys.stderr, flush=True)
+    if len(chaine1) == 1:
+        chaine2 = chaine1 + chaine2
+        chaine1 = ""
+    result = blok(chaine2+"=0")
+    newEqua = chaine1 + result.split('=')[0] + chaine3
+    print("**** NewChaine : ", newEqua, file=sys.stderr, flush=True)
+    result = blok(newEqua)
+    testEqua = testError(result)
+    if testEqua:
+        listSolution.append(equa)
+        break        
+
+print("**** Solution ****** : ", file=sys.stderr, flush=True)
+for solution in listSolution:
+    print(solution)
 
 
 
-resultat = blok(equation)
-print("\n*** Travail sur :", equation, file=sys.stderr, flush=True)
-print("*** Resultat :", resultat, file=sys.stderr, flush=True)
 
-test = testError(resultat)
-print("*** test :", test, file=sys.stderr, flush=True)
-    # test = False
+# resultat = blok(equation)
+# print("\n*** Travail sur :", equation, file=sys.stderr, flush=True)
+# print("*** Resultat :", resultat, file=sys.stderr, flush=True)
 
-
-# dataResult.append(equation)
-# test = result.split('=')
-# if test:
-#     dataResult.append(equation)
-# else :
-#     dataResult.append("Error : " + equation)
+# test = testError(resultat)
+# print("*** test :", test, file=sys.stderr, flush=True)
+#     # test = False
 
 
+# # dataResult.append(equation)
+# # test = result.split('=')
+# # if test:
+# #     dataResult.append(equation)
+# # else :
+# #     dataResult.append("Error : " + equation)
 
 
-print("--- END ---")
+
+
+# print("--- END ---")
 
 
 
